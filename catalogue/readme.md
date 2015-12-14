@@ -1,21 +1,41 @@
-## Lumen PHP Framework
+# Couchbase PHP Beer-Sample Application
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+This sample application demonstrates the usage of the Couchbase PHP SDK 1.1 in
+combination with the Couchbase Server 2.0 release.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+The official tutorial belonging to this application can be found
+[here](http://www.couchbase.com/docs/couchbase-sdk-php-1.1/tutorial.html).
 
-## Official Documentation
+It is a very simple web application that should show off the basics on how to
+interact with Couchbase Server 2.0 on both key-based and view-based operations.
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+## Requirements
+Please make sure to have PHP 5.3 and Composer available. You also need to have
+the Couchbase Extension (Version 1.1 or higher) installed.
 
-## Security Vulnerabilities
+## Installation
+Clone the application (or follow along in the tutorial), and run
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```
+php composer.phar install
+```
 
-### License
+Make sure to clone the application inside the /beersample-php subdirectory of
+the WEBROOT, because otherwise you need to change all the absolute links in
+there as well.
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Configuration
+The application should be able to run out of the box if you have the beer-sample
+dataset installed and Couchbase Server 2.0 is running on your local machine. You
+can tune the settings on top of the `index.php` file:
+
+```php
+define("SILEX_DEBUG", true);
+define("COUCHBASE_HOSTS", "127.0.0.1");
+define("COUCHBASE_BUCKET", "beer-sample");
+define("COUCHBASE_PASSWORD", "");
+define("COUCHBASE_CONN_PERSIST", true);
+define("INDEX_DISPLAY_LIMIT", 20);
+```
+
+Have fun!

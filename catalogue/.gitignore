@@ -1,2 +1,5 @@
+.DS_Store
+/build
+/composer.lock
 /vendor
-.env
+phpunit.xml
