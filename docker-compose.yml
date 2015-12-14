@@ -1,0 +1,17 @@
+web:
+  image: cdams/php-couchbase
+  #build: .
+  mem_limit: 2000m
+  ports:
+    - "80:80"
+  volumes:
+    - .:/app
+  links:
+    - couchbase:db
+couchbase:
+  image: couchbase
+  ports:
+    - "8091:8091"
+    - "8092:8092"
+  volumes:
+    - ./couchbase:/opt/couchbase/var

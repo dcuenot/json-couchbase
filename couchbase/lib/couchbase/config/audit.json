@@ -1,0 +1,1 @@
+{"auditd_enabled":false,"disabled":[],"log_path":"/opt/couchbase/var/lib/couchbase/logs","rotate_interval":86400,"rotate_size":20971520,"sync":[],"version":1,"descriptors_path":"/opt/couchbase/etc/security"}

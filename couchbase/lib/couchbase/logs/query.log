@@ -1,0 +1,6 @@
+_time=2015-12-14T19:20:44Z _level=INFO _msg= Initialization of cbauth succeeded  
+_time=2015-12-14T19:20:44Z _level=INFO _msg=New site created with url http://127.0.0.1:8091 
+_time=2015-12-14T19:20:44Z _level=INFO _msg=pollEOF: About to start stdin polling 
+_time=2015-12-14T19:20:44Z _level=INFO _msg=cbq-engine started pipeline-batch=16 max-concurrency=1 servicers=4 plus-servicers=16 pipeline-cap=512 request-cap=1024 request-size-cap=67108864 timeout=0 version=1.0.0 datastore=http://127.0.0.1:8091 loglevel=INFO 
+_time=2015-12-14T19:20:44Z _level=INFO _msg=HttpEndpoint: Listen Address=[::]:8093 
+_time=2015-12-14T19:20:45Z _level=INFO _msg=HttpEndpoint: ListenTLS Address=[::]:18093 

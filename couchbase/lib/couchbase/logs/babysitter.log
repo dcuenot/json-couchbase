@@ -1,0 +1,1399 @@
+[ns_server:info,2015-12-14T19:19:46.487Z,babysitter_of_ns_1@127.0.0.1:<0.56.0>:ns_babysitter:init_logging:105]Brought up babysitter logging
+[ns_server:info,2015-12-14T19:19:46.503Z,babysitter_of_ns_1@127.0.0.1:<0.56.0>:ns_babysitter:log_pending:70]Static config terms:
+[{error_logger_mf_dir,"/opt/couchbase/var/lib/couchbase/logs"},
+ {path_config_bindir,"/opt/couchbase/bin"},
+ {path_config_etcdir,"/opt/couchbase/etc/couchbase"},
+ {path_config_libdir,"/opt/couchbase/lib"},
+ {path_config_datadir,"/opt/couchbase/var/lib/couchbase"},
+ {path_config_tmpdir,"/opt/couchbase/var/lib/couchbase/tmp"},
+ {path_config_secdir,"/opt/couchbase/etc/security"},
+ {nodefile,"/opt/couchbase/var/lib/couchbase/couchbase-server.node"},
+ {loglevel_default,debug},
+ {loglevel_couchdb,info},
+ {loglevel_ns_server,debug},
+ {loglevel_error_logger,debug},
+ {loglevel_user,debug},
+ {loglevel_menelaus,debug},
+ {loglevel_ns_doctor,debug},
+ {loglevel_stats,debug},
+ {loglevel_rebalance,debug},
+ {loglevel_cluster,debug},
+ {loglevel_views,debug},
+ {loglevel_mapreduce_errors,debug},
+ {loglevel_xdcr,debug},
+ {loglevel_xdcr_trace,error},
+ {loglevel_access,info},
+ {disk_sink_opts,
+     [{rotation,
+          [{compress,true},
+           {size,41943040},
+           {num_files,10},
+           {buffer_size_max,52428800}]}]},
+ {disk_sink_opts_xdcr_trace,
+     [{rotation,[{compress,false},{size,83886080},{num_files,5}]}]},
+ {net_kernel_verbosity,10}]
+[ns_server:debug,2015-12-14T19:19:46.506Z,babysitter_of_ns_1@127.0.0.1:<0.56.0>:dist_manager:configure_net_kernel:255]Set net_kernel vebosity to 10 -> 0
+[ns_server:info,2015-12-14T19:19:46.510Z,babysitter_of_ns_1@127.0.0.1:<0.56.0>:ns_babysitter:start:54]babysitter cookie: eozgttdgqzjfaiiz
+
+[ns_server:info,2015-12-14T19:19:46.517Z,babysitter_of_ns_1@127.0.0.1:<0.56.0>:ns_babysitter:start:58]Saved babysitter cookie to /opt/couchbase/var/lib/couchbase/couchbase-server.cookie
+[ns_server:info,2015-12-14T19:19:46.530Z,babysitter_of_ns_1@127.0.0.1:ns_crash_log<0.64.0>:ns_crash_log:init:43]crash_log path: /opt/couchbase/var/lib/couchbase/logs/crash_log_v2.bin
+[ns_server:warn,2015-12-14T19:19:46.532Z,babysitter_of_ns_1@127.0.0.1:ns_crash_log<0.64.0>:ns_crash_log:read_crash_log:135]Couldn't load crash_log from /opt/couchbase/var/lib/couchbase/logs/crash_log_v2.bin (perhaps it's first startup): {error,
+                                                                                                                   enoent}
+[error_logger:info,2015-12-14T19:19:46.533Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_babysitter_sup}
+             started: [{pid,<0.64.0>},
+                       {name,ns_crash_log},
+                       {mfargs,{ns_crash_log,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,1000},
+                       {child_type,worker}]
+
+[ns_server:debug,2015-12-14T19:19:46.581Z,babysitter_of_ns_1@127.0.0.1:<0.67.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:19:46.591Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,child_ns_server_sup}
+             started: [{pid,<0.66.0>},
+                       {name,
+                           {ns_server,"/opt/couchbase/lib/erlang/bin/erl",
+                               ["+A","16","-smp","enable","+sbt","u","+P",
+                                "327680","+K","true","+swt","low","+MMmcs",
+                                "30","+e102400","-setcookie","nocookie",
+                                "-kernel","inet_dist_listen_min","21100",
+                                "inet_dist_listen_max","21299","error_logger",
+                                "false","-sasl","sasl_error_logger","false",
+                                "-nouser","-run","child_erlang","child_start",
+                                "ns_bootstrap","--","-smp","enable",
+                                "-couch_ini",
+                                "/opt/couchbase/etc/couchdb/default.ini",
+                                "/opt/couchbase/etc/couchdb/default.d/capi.ini",
+                                "/opt/couchbase/etc/couchdb/default.d/geocouch.ini",
+                                "/opt/couchbase/etc/couchdb/local.ini"],
+                               [{env,
+                                    [{"NS_SERVER_BABYSITTER_COOKIE",
+                                      "eozgttdgqzjfaiiz"},
+                                     {"CHILD_ERLANG_ENV_ARGS",
+                                      "[{kernel,\n     [{inet_dist_listen_min,21100},\n      {inet_dist_listen_max,21299},\n      {included_applications,[]},\n      {error_logger,false}]},\n {sasl,\n     [{errlog_type,all},{included_applications,[]},{sasl_error_logger,false}]},\n {ns_babysitter,\n     [{included_applications,[]},\n      {cookiefile,\n          \"/opt/couchbase/var/lib/couchbase/couchbase-server.cookie\"}]},\n {ns_server,\n     [{pidfile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.pid\"},\n      {max_t,10},\n      {cookiefile,\n          \"/opt/couchbase/var/lib/couchbase/couchbase-server.cookie-ns-server\"},\n      {included_applications,[]},\n      {loglevel_cluster,debug},\n      {path_config_libdir,\"/opt/couchbase/lib\"},\n      {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n      {loglevel_ns_server,debug},\n      {loglevel_access,info},\n      {enable_mlockall,false},\n      {loglevel_error_logger,debug},\n      {loglevel_xdcr,debug},\n      {path_config_secdir,\"/opt/couchbase/etc/security\"},\n      {loglevel_mapreduce_errors,debug},\n      {loglevel_ns_doctor,debug},\n      {loglevel_default,debug},\n      {disk_sink_opts_xdcr_trace,\n          [{rotation,[{compress,false},{size,83886080},{num_files,5}]}]},\n      {loglevel_stats,debug},\n      {config_path,\"/opt/couchbase/etc/couchbase/static_config\"},\n      {loglevel_user,debug},\n      {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n      {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n      {nodefile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.node\"},\n      {path_config_bindir,\"/opt/couchbase/bin\"},\n      {net_kernel_verbosity,10},\n      {max_r,20},\n      {loglevel_rebalance,debug},\n      {loglevel_menelaus,debug},\n      {disk_sink_opts,\n          [{rotation,\n               [{compress,true},\n                {size,41943040},\n                {num_files,10},\n                {buffer_size_max,52428800}]}]},\n      {loglevel_views,debug},\n      {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n      {loglevel_xdcr_trace,error},\n      {loglevel_couchdb,info}]},\n {ns_server,\n     [{pidfile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.pid\"},\n      {max_t,10},\n      {cookiefile,\n          \"/opt/couchbase/var/lib/couchbase/couchbase-server.cookie-ns-server\"},\n      {included_applications,[]},\n      {loglevel_cluster,debug},\n      {path_config_libdir,\"/opt/couchbase/lib\"},\n      {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n      {loglevel_ns_server,debug},\n      {loglevel_access,info},\n      {enable_mlockall,false},\n      {loglevel_error_logger,debug},\n      {loglevel_xdcr,debug},\n      {path_config_secdir,\"/opt/couchbase/etc/security\"},\n      {loglevel_mapreduce_errors,debug},\n      {loglevel_ns_doctor,debug},\n      {loglevel_default,debug},\n      {disk_sink_opts_xdcr_trace,\n          [{rotation,[{compress,false},{size,83886080},{num_files,5}]}]},\n      {loglevel_stats,debug},\n      {config_path,\"/opt/couchbase/etc/couchbase/static_config\"},\n      {loglevel_user,debug},\n      {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n      {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n      {nodefile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.node\"},\n      {path_config_bindir,\"/opt/couchbase/bin\"},\n      {net_kernel_verbosity,10},\n      {max_r,20},\n      {loglevel_rebalance,debug},\n      {loglevel_menelaus,debug},\n      {disk_sink_opts,\n          [{rotation,\n               [{compress,true},\n                {size,41943040},\n                {num_files,10},\n                {buffer_size_max,52428800}]}]},\n      {loglevel_views,debug},\n      {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n      {loglevel_xdcr_trace,error},\n      {loglevel_couchdb,info}]},\n {ns_server,\n     [{pidfile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.pid\"},\n      {max_t,10},\n      {cookiefile,\n          \"/opt/couchbase/var/lib/couchbase/couchbase-server.cookie-ns-server\"},\n      {included_applications,[]},\n      {loglevel_cluster,debug},\n      {path_config_libdir,\"/opt/couchbase/lib\"},\n      {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n      {loglevel_ns_server,debug},\n      {loglevel_access,info},\n      {enable_mlockall,false},\n      {loglevel_error_logger,debug},\n      {loglevel_xdcr,debug},\n      {path_config_secdir,\"/opt/couchbase/etc/security\"},\n      {loglevel_mapreduce_errors,debug},\n      {loglevel_ns_doctor,debug},\n      {loglevel_default,debug},\n      {disk_sink_opts_xdcr_trace,\n          [{rotation,[{compress,false},{size,83886080},{num_files,5}]}]},\n      {loglevel_stats,debug},\n      {config_path,\"/opt/couchbase/etc/couchbase/static_config\"},\n      {loglevel_user,debug},\n      {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n      {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n      {nodefile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.node\"},\n      {path_config_bindir,\"/opt/couchbase/bin\"},\n      {net_kernel_verbosity,10},\n      {max_r,20},\n      {loglevel_rebalance,debug},\n      {loglevel_menelaus,debug},\n      {disk_sink_opts,\n          [{rotation,\n               [{compress,true},\n                {size,41943040},\n                {num_files,10},\n                {buffer_size_max,52428800}]}]},\n      {loglevel_views,debug},\n      {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n      {loglevel_xdcr_trace,error},\n      {loglevel_couchdb,info}]},\n {ns_server,\n     [{pidfile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.pid\"},\n      {max_t,10},\n      {cookiefile,\n          \"/opt/couchbase/var/lib/couchbase/couchbase-server.cookie-ns-server\"},\n      {included_applications,[]},\n      {loglevel_cluster,debug},\n      {path_config_libdir,\"/opt/couchbase/lib\"},\n      {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n      {loglevel_ns_server,debug},\n      {loglevel_access,info},\n      {enable_mlockall,false},\n      {loglevel_error_logger,debug},\n      {loglevel_xdcr,debug},\n      {path_config_secdir,\"/opt/couchbase/etc/security\"},\n      {loglevel_mapreduce_errors,debug},\n      {loglevel_ns_doctor,debug},\n      {loglevel_default,debug},\n      {disk_sink_opts_xdcr_trace,\n          [{rotation,[{compress,false},{size,83886080},{num_files,5}]}]},\n      {loglevel_stats,debug},\n      {config_path,\"/opt/couchbase/etc/couchbase/static_config\"},\n      {loglevel_user,debug},\n      {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n      {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n      {nodefile,\"/opt/couchbase/var/lib/couchbase/couchbase-server.node\"},\n      {path_config_bindir,\"/opt/couchbase/bin\"},\n      {net_kernel_verbosity,10},\n      {max_r,20},\n      {loglevel_rebalance,debug},\n      {loglevel_menelaus,debug},\n      {disk_sink_opts,\n          [{rotation,\n               [{compress,true},\n                {size,41943040},\n                {num_files,10},\n                {buffer_size_max,52428800}]}]},\n      {loglevel_views,debug},\n      {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n      {loglevel_xdcr_trace,error},\n      {loglevel_couchdb,info}]}]"},
+                                     {"ERL_CRASH_DUMP",
+                                      "erl_crash.dump.1450120784.9.ns_server"}]},
+                                exit_status,use_stdio,stream,eof]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [ns_server,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[error_logger:info,2015-12-14T19:19:46.593Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_babysitter_sup}
+             started: [{pid,<0.65.0>},
+                       {name,child_ns_server_sup},
+                       {mfargs,{child_ns_server_sup,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,supervisor}]
+
+[error_logger:info,2015-12-14T19:19:46.593Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_babysitter_sup}
+             started: [{pid,<0.69.0>},
+                       {name,ns_child_ports_sup},
+                       {mfargs,{ns_child_ports_sup,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,supervisor}]
+
+[error_logger:info,2015-12-14T19:19:46.608Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_babysitter_sup}
+             started: [{pid,<0.70.0>},
+                       {name,ns_ports_manager},
+                       {mfargs,{ns_ports_manager,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,1000},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:19:46.608Z,babysitter_of_ns_1@127.0.0.1:<0.2.0>:ns_babysitter_bootstrap:start:12]9: babysitter has started
+[error_logger:info,2015-12-14T19:19:46.608Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+         application: ns_babysitter
+          started_at: 'babysitter_of_ns_1@127.0.0.1'
+
+[error_logger:info,2015-12-14T19:19:54.242Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,kernel_safe_sup}
+             started: [{pid,<0.73.0>},
+                       {name,timer2_server},
+                       {mfargs,{timer2,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,1000},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:19:54.442Z,babysitter_of_ns_1@127.0.0.1:<0.68.0>:ns_port_server:log:210]ns_server<0.68.0>: working as port
+
+[ns_server:debug,2015-12-14T19:19:55.619Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:88]New list of children is received: [memcached,saslauthd_port,xdcr_proxy]
+[ns_server:info,2015-12-14T19:19:55.619Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {memcached,"/opt/couchbase/bin/memcached",
+                             ["-C",
+                              "/opt/couchbase/var/lib/couchbase/config/memcached.json"],
+                             [{env,[{"EVENT_NOSELECT","1"},
+                                    {"MEMCACHED_TOP_KEYS","5"},
+                                    {"ISASL_PWFILE",
+                                     "/opt/couchbase/var/lib/couchbase/isasl.pw"}]},
+                              use_stdio,stderr_to_stdout,exit_status,
+                              port_server_dont_start,stream]}
+[ns_server:debug,2015-12-14T19:19:55.619Z,babysitter_of_ns_1@127.0.0.1:<0.75.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[ns_server:info,2015-12-14T19:19:55.620Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {saslauthd_port,"/opt/couchbase/bin/saslauthd-port",[],
+                      [use_stdio,exit_status,stderr_to_stdout,stream,
+                       {env,
+                           [{"GOTRACEBACK",[]},
+                            {"CBAUTH_REVRPC_URL",
+                             "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/saslauthd"}]}]}
+[error_logger:info,2015-12-14T19:19:55.620Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.74.0>},
+                       {name,
+                           {memcached,"/opt/couchbase/bin/memcached",
+                               ["-C",
+                                "/opt/couchbase/var/lib/couchbase/config/memcached.json"],
+                               [{env,
+                                    [{"EVENT_NOSELECT","1"},
+                                     {"MEMCACHED_TOP_KEYS","5"},
+                                     {"ISASL_PWFILE",
+                                      "/opt/couchbase/var/lib/couchbase/isasl.pw"}]},
+                                use_stdio,stderr_to_stdout,exit_status,
+                                port_server_dont_start,stream]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [memcached,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:debug,2015-12-14T19:19:55.620Z,babysitter_of_ns_1@127.0.0.1:<0.78.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:19:55.628Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.77.0>},
+                       {name,
+                           {saslauthd_port,
+                               "/opt/couchbase/bin/saslauthd-port",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {env,
+                                    [{"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/saslauthd"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [saslauthd_port,5000,infinity,
+                                     ns_port_server,start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:19:55.629Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                              ["-pa",
+                               "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                               "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                               "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                               "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                               "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                               "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                               "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                               "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                               "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                               "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                               "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                               "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                               "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                               ".","-smp","enable","+P","327680","+K","true",
+                               "-kernel","error_logger","false","-sasl",
+                               "sasl_error_logger","false","-nouser","-run",
+                               "child_erlang","child_start","ns_ssl_proxy"],
+                              [use_stdio,
+                               {env,[{"NS_SSL_PROXY_ENV_ARGS",
+                                      "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,undefined},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                     {"ERL_CRASH_DUMP",
+                                      "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}
+[ns_server:debug,2015-12-14T19:19:55.630Z,babysitter_of_ns_1@127.0.0.1:<0.81.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:19:55.632Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.80.0>},
+                       {name,
+                           {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                               ["-pa",
+                                "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                                "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                                "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                                "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                                "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                                "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                                "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                                "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                                "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                                "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                                "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                                "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                                "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                                ".","-smp","enable","+P","327680","+K","true",
+                                "-kernel","error_logger","false","-sasl",
+                                "sasl_error_logger","false","-nouser","-run",
+                                "child_erlang","child_start","ns_ssl_proxy"],
+                               [use_stdio,
+                                {env,
+                                    [{"NS_SSL_PROXY_ENV_ARGS",
+                                      "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,undefined},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                     {"ERL_CRASH_DUMP",
+                                      "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [xdcr_proxy,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:debug,2015-12-14T19:19:55.929Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:88]New list of children is received: [memcached,saslauthd_port,goxdcr,xdcr_proxy]
+[ns_server:info,2015-12-14T19:19:55.929Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {goxdcr,"/opt/couchbase/bin/goport",[],
+                          [use_stdio,exit_status,stderr_to_stdout,stream,
+                           {log,"goxdcr.log"},
+                           {env,[{"GOPORT_ARGS",
+                                  "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                 {"GOTRACEBACK",[]},
+                                 {"CBAUTH_REVRPC_URL",
+                                  "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}
+[ns_server:debug,2015-12-14T19:19:55.929Z,babysitter_of_ns_1@127.0.0.1:<0.84.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:19:56.016Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.86.0>},
+                       {name,'sink-goxdcr'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-goxdcr',
+                                "/opt/couchbase/var/lib/couchbase/logs/goxdcr.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[error_logger:info,2015-12-14T19:19:56.428Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.83.0>},
+                       {name,
+                           {goxdcr,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {log,"goxdcr.log"},
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [goxdcr,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:19:56.446Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:19:56.230096Z WARNING NUMA: Not available - not setting mem policy.
+memcached<0.76.0>: 2015-12-14T19:19:56.251870Z WARNING Restarting file logging
+
+[ns_server:info,2015-12-14T19:19:56.592Z,babysitter_of_ns_1@127.0.0.1:<0.68.0>:ns_port_server:log:210]ns_server<0.68.0>: 72: Booted. Waiting for shutdown request
+
+[ns_server:debug,2015-12-14T19:19:58.606Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:72]Restart of port xdcr_proxy is requested
+[ns_server:info,2015-12-14T19:19:58.607Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:restart_port:117]restarting port: {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                             ["-pa",
+                              "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                              "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                              "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                              "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                              "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                              "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                              "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                              "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                              "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                              "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                              "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                              "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                              "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                              "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                              "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                              "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                              "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                              "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                              "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                              "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                              "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                              "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                              "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                              "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                              "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                              "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                              "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                              ".","-smp","enable","+P","327680","+K","true",
+                              "-kernel","error_logger","false","-sasl",
+                              "sasl_error_logger","false","-nouser","-run",
+                              "child_erlang","child_start","ns_ssl_proxy"],
+                             [use_stdio,
+                              {env,[{"NS_SSL_PROXY_ENV_ARGS",
+                                     "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,undefined},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                    {"ERL_CRASH_DUMP",
+                                     "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}
+[ns_server:debug,2015-12-14T19:19:58.607Z,babysitter_of_ns_1@127.0.0.1:<0.80.0>:restartable:loop:71]Restarting child <0.81.0>
+  MFA: {supervisor_cushion,start_link,
+                           [xdcr_proxy,5000,infinity,ns_port_server,
+                            start_link,
+                            [#Fun<ns_child_ports_sup.2.49698737>]]}
+  Shutdown policy: 86400000
+  Caller: {<0.70.0>,#Ref<0.0.0.249>}
+
+[ns_server:debug,2015-12-14T19:19:58.608Z,babysitter_of_ns_1@127.0.0.1:<0.82.0>:ns_port_server:terminate:182]Sending shutdown to port xdcr_proxy
+[ns_server:debug,2015-12-14T19:19:59.294Z,babysitter_of_ns_1@127.0.0.1:<0.82.0>:ns_port_server:terminate:185]xdcr_proxy has exited
+[ns_server:info,2015-12-14T19:19:59.294Z,babysitter_of_ns_1@127.0.0.1:<0.82.0>:ns_port_server:log:210]xdcr_proxy<0.82.0>: 148: Booted. Waiting for shutdown request
+xdcr_proxy<0.82.0>: 148: got shutdown request. Exiting
+
+[ns_server:debug,2015-12-14T19:19:59.294Z,babysitter_of_ns_1@127.0.0.1:<0.91.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[ns_server:info,2015-12-14T19:20:00.952Z,babysitter_of_ns_1@127.0.0.1:<0.92.0>:ns_port_server:log:210]xdcr_proxy<0.92.0>: 195: Booted. Waiting for shutdown request
+
+[ns_server:info,2015-12-14T19:20:09.491Z,babysitter_of_ns_1@127.0.0.1:<0.84.0>:supervisor_cushion:handle_info:58]Cushion managed supervisor for goxdcr failed:  {abnormal,0}
+[error_logger:error,2015-12-14T19:20:09.491Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]** Generic server <0.85.0> terminating 
+** Last message in was {#Port<0.3511>,{exit_status,0}}
+** When Server state == {state,#Port<0.3511>,goxdcr,
+                               {["ReplicationManager 2015-12-14T19:20:09.490Z [INFO] Replication manager exists",
+                                 "ReplicationManager 2015-12-14T19:20:09.490Z [INFO] Finish executing 0x648140",
+                                 "Adminport 2015-12-14T19:20:09.490Z [INFO] server is stopped per request sent at 2015-12-14 19:20:09.490177356 +0000 UTC",
+                                 "HttpServer 2015-12-14T19:20:09.490Z [ERROR] [xdcr:127.0.0.1:9998] exited with error accept tcp 127.0.0.1:9998: use of closed network connection"],
+                                ["PipelineManager 2015-12-14T19:20:09.490Z [INFO] Sent finish signal to all running repairer"]},
+                               goxdcr,undefined,[],0}
+** Reason for termination == 
+** {abnormal,0}
+
+[ns_server:debug,2015-12-14T19:20:09.492Z,babysitter_of_ns_1@127.0.0.1:<0.94.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:error,2015-12-14T19:20:09.496Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: ns_port_server:init/1
+    pid: <0.85.0>
+    registered_name: []
+    exception exit: {abnormal,0}
+      in function  gen_server:terminate/6 (gen_server.erl, line 744)
+    ancestors: [<0.84.0>,<0.83.0>,ns_child_ports_sup,ns_babysitter_sup,
+                  <0.56.0>]
+    messages: [{'EXIT',#Port<0.3511>,normal}]
+    links: [<0.84.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 6772
+    stack_size: 27
+    reductions: 4696
+  neighbours:
+
+[error_logger:error,2015-12-14T19:20:09.496Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]** Generic server <0.84.0> terminating 
+** Last message in was {die,{abnormal,0}}
+** When Server state == {state,goxdcr,5000,
+                               {1450,120796,428697},
+                               undefined,infinity}
+** Reason for termination == 
+** {abnormal,0}
+
+[error_logger:error,2015-12-14T19:20:09.496Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: supervisor_cushion:init/1
+    pid: <0.84.0>
+    registered_name: []
+    exception exit: {abnormal,0}
+      in function  gen_server:terminate/6 (gen_server.erl, line 744)
+    ancestors: [<0.83.0>,ns_child_ports_sup,ns_babysitter_sup,<0.56.0>]
+    messages: []
+    links: [<0.83.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 1795
+  neighbours:
+
+[error_logger:error,2015-12-14T19:20:09.496Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: erlang:apply/2
+    pid: <0.83.0>
+    registered_name: []
+    exception exit: {abnormal,0}
+      in function  restartable:loop/4 (src/restartable.erl, line 69)
+    ancestors: [ns_child_ports_sup,ns_babysitter_sup,<0.56.0>]
+    messages: []
+    links: [<0.69.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 115
+  neighbours:
+
+[error_logger:error,2015-12-14T19:20:09.496Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================SUPERVISOR REPORT=========================
+     Supervisor: {local,ns_child_ports_sup}
+     Context:    child_terminated
+     Reason:     {abnormal,0}
+     Offender:   [{pid,<0.83.0>},
+                  {name,
+                      {goxdcr,"/opt/couchbase/bin/goport",[],
+                          [use_stdio,exit_status,stderr_to_stdout,stream,
+                           {log,"goxdcr.log"},
+                           {env,
+                               [{"GOPORT_ARGS",
+                                 "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                {"GOTRACEBACK",[]},
+                                {"CBAUTH_REVRPC_URL",
+                                 "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}},
+                  {mfargs,
+                      {restartable,start_link,
+                          [{supervisor_cushion,start_link,
+                               [goxdcr,5000,infinity,ns_port_server,
+                                start_link,
+                                [#Fun<ns_child_ports_sup.2.49698737>]]},
+                           86400000]}},
+                  {restart_type,permanent},
+                  {shutdown,infinity},
+                  {child_type,worker}]
+
+
+[error_logger:info,2015-12-14T19:20:09.595Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.96.0>},
+                       {name,'sink-goxdcr'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-goxdcr',
+                                "/opt/couchbase/var/lib/couchbase/logs/goxdcr.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[error_logger:info,2015-12-14T19:20:09.692Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.93.0>},
+                       {name,
+                           {goxdcr,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {log,"goxdcr.log"},
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [goxdcr,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:09.816Z,babysitter_of_ns_1@127.0.0.1:<0.94.0>:supervisor_cushion:handle_info:58]Cushion managed supervisor for goxdcr failed:  {abnormal,1}
+[ns_server:info,2015-12-14T19:20:09.816Z,babysitter_of_ns_1@127.0.0.1:<0.94.0>:supervisor_cushion:die_slowly:80]Service goxdcr exited on node 'babysitter_of_ns_1@127.0.0.1' in 0.12s
+
+[error_logger:error,2015-12-14T19:20:09.815Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]** Generic server <0.95.0> terminating 
+** Last message in was {#Port<0.3531>,{exit_status,1}}
+** When Server state == {state,#Port<0.3531>,goxdcr,
+                               {["[goport] 2015/12/14 19:20:09 /opt/couchbase/bin/goxdcr terminated: exit status 1",
+                                 "Error starting remote cluster service. err=metakv failed for max number of retries = 5",
+                                 "RemoteClusterService 2015-12-14T19:20:09.813Z [ERROR] Failed to get all entries, err=metakv failed for max number of retries = 5",
+                                 "MetadataService 2015-12-14T19:20:09.813Z [ERROR] metakv.ListAllChildren failed. path=/remoteCluster/, err=Get http://127.0.0.1:8091/_metakv/remoteCluster/: CBAuth database is stale: last reason: dial tcp 127.0.0.1:8091: connection refused, num_of_retry=4"],
+                                ["MetadataService 2015-12-14T19:20:09.813Z [ERROR] metakv.ListAllChildren failed. path=/remoteCluster/, err=Get http://127.0.0.1:8091/_metakv/remoteCluster/: CBAuth database is stale: last reason: dial tcp 127.0.0.1:8091: connection refused, num_of_retry=3"]},
+                               goxdcr,undefined,[],0}
+** Reason for termination == 
+** {abnormal,1}
+
+[error_logger:error,2015-12-14T19:20:09.816Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: ns_port_server:init/1
+    pid: <0.95.0>
+    registered_name: []
+    exception exit: {abnormal,1}
+      in function  gen_server:terminate/6 (gen_server.erl, line 744)
+    ancestors: [<0.94.0>,<0.93.0>,ns_child_ports_sup,ns_babysitter_sup,
+                  <0.56.0>]
+    messages: [{'EXIT',#Port<0.3531>,normal}]
+    links: [<0.94.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 6772
+    stack_size: 27
+    reductions: 1561
+  neighbours:
+
+[error_logger:info,2015-12-14T19:20:09.817Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,kernel_safe_sup}
+             started: [{pid,<0.100.0>},
+                       {name,timer_server},
+                       {mfargs,{timer,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,1000},
+                       {child_type,worker}]
+
+[ns_server:debug,2015-12-14T19:20:12.651Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:88]New list of children is received: [memcached,saslauthd_port,goxdcr,xdcr_proxy]
+[ns_server:info,2015-12-14T19:20:12.651Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:terminate_port:112]unsupervising port: {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                                ["-pa",
+                                 "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                                 "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                                 "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                                 "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                                 "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                                 "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                                 ".","-smp","enable","+P","327680","+K",
+                                 "true","-kernel","error_logger","false",
+                                 "-sasl","sasl_error_logger","false",
+                                 "-nouser","-run","child_erlang",
+                                 "child_start","ns_ssl_proxy"],
+                                [use_stdio,
+                                 {env,[{"NS_SSL_PROXY_ENV_ARGS",
+                                        "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,undefined},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                       {"ERL_CRASH_DUMP",
+                                        "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}
+[ns_server:debug,2015-12-14T19:20:12.652Z,babysitter_of_ns_1@127.0.0.1:<0.92.0>:ns_port_server:terminate:182]Sending shutdown to port xdcr_proxy
+[ns_server:debug,2015-12-14T19:20:12.654Z,babysitter_of_ns_1@127.0.0.1:<0.92.0>:ns_port_server:terminate:185]xdcr_proxy has exited
+[ns_server:info,2015-12-14T19:20:12.654Z,babysitter_of_ns_1@127.0.0.1:<0.92.0>:ns_port_server:log:210]xdcr_proxy<0.92.0>: 195: got shutdown request. Exiting
+
+[ns_server:info,2015-12-14T19:20:12.657Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                              ["-pa",
+                               "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                               "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                               "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                               "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                               "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                               "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                               "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                               "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                               "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                               "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                               "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                               "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                               "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                               "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                               "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                               "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                               "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                               "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                               "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                               "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                               "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                               ".","-smp","enable","+P","327680","+K","true",
+                               "-kernel","error_logger","false","-sasl",
+                               "sasl_error_logger","false","-nouser","-run",
+                               "child_erlang","child_start","ns_ssl_proxy"],
+                              [use_stdio,
+                               {env,[{"NS_SSL_PROXY_ENV_ARGS",
+                                      "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem-ca\"},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                     {"ERL_CRASH_DUMP",
+                                      "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}
+[ns_server:debug,2015-12-14T19:20:12.659Z,babysitter_of_ns_1@127.0.0.1:<0.103.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:20:12.677Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.102.0>},
+                       {name,
+                           {xdcr_proxy,"/opt/couchbase/lib/erlang/bin/erl",
+                               ["-pa",
+                                "/opt/couchbase/lib/erlang/lib/appmon-2.1.14.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/asn1-2.0.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/common_test-1.7.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/compiler-4.9.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosEvent-2.1.14/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosEventDomain-1.1.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosFileTransfer-1.1.15/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosNotification-1.1.20/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosProperty-1.1.16/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosTime-1.1.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/cosTransactions-1.2.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/crypto-3.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/dialyzer-2.6.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/diameter-1.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/edoc-0.7.12.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/eldap-1.0.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/erl_docgen-0.3.4.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/erl_interface-3.7.15",
+                                "/opt/couchbase/lib/erlang/lib/erts-5.10.4.0.0.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/et-1.4.4.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/eunit-2.2.6/ebin",
+                                "/opt/couchbase/lib/erlang/lib/gs-1.5.15.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/hipe-3.10.2.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ic-4.3.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/inets-5.9.8/ebin",
+                                "/opt/couchbase/lib/erlang/lib/mnesia-4.11/ebin",
+                                "/opt/couchbase/lib/erlang/lib/orber-3.6.26.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/os_mon-2.2.14/ebin",
+                                "/opt/couchbase/lib/erlang/lib/otp_mibs-1.0.8/ebin",
+                                "/opt/couchbase/lib/erlang/lib/parsetools-2.0.10/ebin",
+                                "/opt/couchbase/lib/erlang/lib/percept-0.8.8.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/pman-2.7.1.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/public_key-0.21/ebin",
+                                "/opt/couchbase/lib/erlang/lib/reltool-0.6.4.1/ebin",
+                                "/opt/couchbase/lib/erlang/lib/runtime_tools-1.8.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/sasl-2.3.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/snmp-4.25/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ssh-3.0/ebin",
+                                "/opt/couchbase/lib/erlang/lib/ssl-5.3.3/ebin",
+                                "/opt/couchbase/lib/erlang/lib/syntax_tools-1.6.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/test_server-3.6.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/toolbar-1.4.2.3/ebin",
+                                "/opt/couchbase/lib/erlang/lib/tools-2.6.13/ebin",
+                                "/opt/couchbase/lib/erlang/lib/tv-2.1.4.10/ebin",
+                                "/opt/couchbase/lib/erlang/lib/typer-0.9.5/ebin",
+                                "/opt/couchbase/lib/erlang/lib/webtool-0.8.9.2/ebin",
+                                "/opt/couchbase/lib/erlang/lib/xmerl-1.3.6/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/gc-couchbase-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/vtree-0.1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/plugins/wkb-1.2.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch-1.2.0a-961ad59-git/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_dcp-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_index_merger-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_set_view-1.0.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/couch_view_parser-1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/ejson-0.1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/erlang-oauth/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/etap/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/lhttpc-1.3/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/mapreduce-1.0/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/mochiweb-1.4.1/ebin",
+                                "/opt/couchbase/lib/couchdb/erlang/lib/snappy-1.0.4/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ale/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/gen_smtp/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/mlockall/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_babysitter/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_couchdb/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_server/ebin",
+                                "/opt/couchbase/lib/ns_server/erlang/lib/ns_ssl_proxy/ebin",
+                                "/opt/couchbase/lib/erlang/lib/stdlib-1.19.4/ebin",
+                                "/opt/couchbase/lib/erlang/lib/kernel-2.16.4/ebin",
+                                ".","-smp","enable","+P","327680","+K","true",
+                                "-kernel","error_logger","false","-sasl",
+                                "sasl_error_logger","false","-nouser","-run",
+                                "child_erlang","child_start","ns_ssl_proxy"],
+                               [use_stdio,
+                                {env,
+                                    [{"NS_SSL_PROXY_ENV_ARGS",
+                                      "[{upstream_port,11215},\n {downstream_port,11214},\n {local_memcached_port,11210},\n {cert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {private_key_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"},\n {cacert_file,\"/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem-ca\"},\n {loglevel_cluster,debug},\n {path_config_libdir,\"/opt/couchbase/lib\"},\n {path_config_tmpdir,\"/opt/couchbase/var/lib/couchbase/tmp\"},\n {loglevel_ns_server,debug},\n {loglevel_access,info},\n {loglevel_error_logger,debug},\n {loglevel_xdcr,debug},\n {path_config_secdir,\"/opt/couchbase/etc/security\"},\n {loglevel_mapreduce_errors,debug},\n {loglevel_ns_doctor,debug},\n {loglevel_default,debug},\n {loglevel_stats,debug},\n {loglevel_user,debug},\n {error_logger_mf_dir,\"/opt/couchbase/var/lib/couchbase/logs\"},\n {path_config_etcdir,\"/opt/couchbase/etc/couchbase\"},\n {path_config_bindir,\"/opt/couchbase/bin\"},\n {net_kernel_verbosity,10},\n {loglevel_rebalance,debug},\n {loglevel_menelaus,debug},\n {disk_sink_opts,[{rotation,[{compress,true},\n                             {size,41943040},\n                             {num_files,10},\n                             {buffer_size_max,52428800}]}]},\n {loglevel_views,debug},\n {path_config_datadir,\"/opt/couchbase/var/lib/couchbase\"},\n {loglevel_xdcr_trace,error},\n {loglevel_couchdb,info}]"},
+                                     {"ERL_CRASH_DUMP",
+                                      "erl_crash.dump.1450120784.9.xdcr_proxy"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [xdcr_proxy,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:12.878Z,babysitter_of_ns_1@127.0.0.1:<0.68.0>:ns_port_server:log:210]ns_server<0.68.0>: working as port
+
+[ns_server:info,2015-12-14T19:20:14.439Z,babysitter_of_ns_1@127.0.0.1:<0.104.0>:ns_port_server:log:210]xdcr_proxy<0.104.0>: 264: Booted. Waiting for shutdown request
+
+[error_logger:error,2015-12-14T19:20:14.818Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]** Generic server <0.94.0> terminating 
+** Last message in was {die,{abnormal,1}}
+** When Server state == {state,goxdcr,5000,
+                               {1450,120809,692410},
+                               undefined,infinity}
+** Reason for termination == 
+** {abnormal,1}
+
+[error_logger:error,2015-12-14T19:20:14.819Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: supervisor_cushion:init/1
+    pid: <0.94.0>
+    registered_name: []
+    exception exit: {abnormal,1}
+      in function  gen_server:terminate/6 (gen_server.erl, line 744)
+    ancestors: [<0.93.0>,ns_child_ports_sup,ns_babysitter_sup,<0.56.0>]
+    messages: []
+    links: [<0.93.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2791
+  neighbours:
+
+[ns_server:debug,2015-12-14T19:20:14.819Z,babysitter_of_ns_1@127.0.0.1:<0.106.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:error,2015-12-14T19:20:14.820Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================CRASH REPORT=========================
+  crasher:
+    initial call: erlang:apply/2
+    pid: <0.93.0>
+    registered_name: []
+    exception exit: {abnormal,1}
+      in function  restartable:loop/4 (src/restartable.erl, line 69)
+    ancestors: [ns_child_ports_sup,ns_babysitter_sup,<0.56.0>]
+    messages: []
+    links: [<0.69.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 115
+  neighbours:
+
+[error_logger:error,2015-12-14T19:20:14.820Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================SUPERVISOR REPORT=========================
+     Supervisor: {local,ns_child_ports_sup}
+     Context:    child_terminated
+     Reason:     {abnormal,1}
+     Offender:   [{pid,<0.93.0>},
+                  {name,
+                      {goxdcr,"/opt/couchbase/bin/goport",[],
+                          [use_stdio,exit_status,stderr_to_stdout,stream,
+                           {log,"goxdcr.log"},
+                           {env,
+                               [{"GOPORT_ARGS",
+                                 "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                {"GOTRACEBACK",[]},
+                                {"CBAUTH_REVRPC_URL",
+                                 "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}},
+                  {mfargs,
+                      {restartable,start_link,
+                          [{supervisor_cushion,start_link,
+                               [goxdcr,5000,infinity,ns_port_server,
+                                start_link,
+                                [#Fun<ns_child_ports_sup.2.49698737>]]},
+                           86400000]}},
+                  {restart_type,permanent},
+                  {shutdown,infinity},
+                  {child_type,worker}]
+
+
+[error_logger:info,2015-12-14T19:20:14.887Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.108.0>},
+                       {name,'sink-goxdcr'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-goxdcr',
+                                "/opt/couchbase/var/lib/couchbase/logs/goxdcr.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[error_logger:info,2015-12-14T19:20:14.952Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.105.0>},
+                       {name,
+                           {goxdcr,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {log,"goxdcr.log"},
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/goxdcr\",\"-localProxyPort=11215\",\"-sourceKVAdminPort=8091\",\"-xdcrRestPort=9998\",\"-isEnterprise=true\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/goxdcr"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [goxdcr,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:debug,2015-12-14T19:20:42.790Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:88]New list of children is received: [memcached,moxi,projector,indexer,query,
+                                   saslauthd_port,goxdcr,xdcr_proxy]
+[ns_server:info,2015-12-14T19:20:42.791Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {moxi,"/opt/couchbase/bin/moxi",
+                        ["-Z",
+                         "port_listen=11211,default_bucket_name=default,downstream_max=1024,downstream_conn_max=4,connect_max_errors=5,connect_retry_interval=30000,connect_timeout=400,auth_timeout=100,cycle=200,downstream_conn_queue_timeout=200,downstream_timeout=5000,wait_queue_timeout=200",
+                         "-z",
+                         "url=http://127.0.0.1:8091/pools/default/saslBucketsStreaming",
+                         "-p","0","-Y","y","-O","stderr",[]],
+                        [{env,[{"EVENT_NOSELECT","1"},
+                               {"MOXI_SASL_PLAIN_USR","@moxi"},
+                               {"MOXI_SASL_PLAIN_PWD","*****"},
+                               {"http_proxy",[]}]},
+                         use_stdio,exit_status,stderr_to_stdout,stream]}
+[ns_server:debug,2015-12-14T19:20:42.791Z,babysitter_of_ns_1@127.0.0.1:<0.113.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:20:42.792Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.112.0>},
+                       {name,
+                           {moxi,"/opt/couchbase/bin/moxi",
+                               ["-Z",
+                                "port_listen=11211,default_bucket_name=default,downstream_max=1024,downstream_conn_max=4,connect_max_errors=5,connect_retry_interval=30000,connect_timeout=400,auth_timeout=100,cycle=200,downstream_conn_queue_timeout=200,downstream_timeout=5000,wait_queue_timeout=200",
+                                "-z",
+                                "url=http://127.0.0.1:8091/pools/default/saslBucketsStreaming",
+                                "-p","0","-Y","y","-O","stderr",[]],
+                               [{env,
+                                    [{"EVENT_NOSELECT","1"},
+                                     {"MOXI_SASL_PLAIN_USR","@moxi"},
+                                     {"MOXI_SASL_PLAIN_PWD","*****"},
+                                     {"http_proxy",[]}]},
+                                use_stdio,exit_status,stderr_to_stdout,
+                                stream]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [moxi,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:42.792Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {projector,"/opt/couchbase/bin/goport",[],
+                             [use_stdio,exit_status,stderr_to_stdout,stream,
+                              {log,"projector.log"},
+                              {env,[{"GOPORT_ARGS",
+                                     "[\"/opt/couchbase/bin/projector\",\"-kvaddrs=127.0.0.1:11210\",\"-adminport=:9999\",\"-diagDir=/opt/couchbase/var/lib/couchbase/crash\",\"127.0.0.1:8091\"]"},
+                                    {"GOTRACEBACK",[]},
+                                    {"CBAUTH_REVRPC_URL",
+                                     "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/projector"}]}]}
+[ns_server:debug,2015-12-14T19:20:42.792Z,babysitter_of_ns_1@127.0.0.1:<0.116.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:20:42.932Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.118.0>},
+                       {name,'sink-projector'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-projector',
+                                "/opt/couchbase/var/lib/couchbase/logs/projector.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:43.190Z,babysitter_of_ns_1@127.0.0.1:<0.114.0>:ns_port_server:log:210]moxi<0.114.0>: 2015-12-14 19:20:42: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/cproxy_config.c.327) env: MOXI_SASL_PLAIN_USR (5)
+moxi<0.114.0>: 2015-12-14 19:20:42: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/cproxy_config.c.336) env: MOXI_SASL_PLAIN_PWD (32)
+moxi<0.114.0>: 2015-12-14 19:20:44: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/agent_config.c.721) ERROR: bad JSON configuration from http://127.0.0.1:8091/pools/default/saslBucketsStreaming: Empty serverList
+moxi<0.114.0>: 2015-12-14 19:20:44: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/agent_config.c.721) ERROR: bad JSON configuration from http://127.0.0.1:8091/pools/default/saslBucketsStreaming: No vBuckets available; service maybe still initializing
+
+[error_logger:info,2015-12-14T19:20:43.280Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.115.0>},
+                       {name,
+                           {projector,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {log,"projector.log"},
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/projector\",\"-kvaddrs=127.0.0.1:11210\",\"-adminport=:9999\",\"-diagDir=/opt/couchbase/var/lib/couchbase/crash\",\"127.0.0.1:8091\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/projector"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [projector,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:43.280Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {indexer,"/opt/couchbase/bin/goport",[],
+                           [use_stdio,exit_status,stderr_to_stdout,stream,
+                            {log,"indexer.log"},
+                            {env,[{"GOPORT_ARGS",
+                                   "[\"/opt/couchbase/bin/indexer\",\"-vbuckets=1024\",\"-cluster=127.0.0.1:8091\",\"-adminPort=9100\",\"-scanPort=9101\",\"-httpPort=9102\",\"-streamInitPort=9103\",\"-streamCatchupPort=9104\",\"-streamMaintPort=9105\",\"-storageDir=/opt/couchbase/var/lib/couchbase/index/@2i\",\"-diagDir=/opt/couchbase/var/lib/couchbase/crash\"]"},
+                                  {"GOTRACEBACK",[]},
+                                  {"CBAUTH_REVRPC_URL",
+                                   "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/index"}]}]}
+[ns_server:debug,2015-12-14T19:20:43.281Z,babysitter_of_ns_1@127.0.0.1:<0.123.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:20:43.420Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.125.0>},
+                       {name,'sink-indexer'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-indexer',
+                                "/opt/couchbase/var/lib/couchbase/logs/indexer.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:43.759Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:20:43.550618Z WARNING (No Engine) Bucket default registered with low priority
+memcached<0.76.0>: 2015-12-14T19:20:43.550667Z WARNING (No Engine) Spawning 4 readers, 4 writers, 1 auxIO, 1 nonIO threads
+memcached<0.76.0>: 2015-12-14T19:20:43.570716Z WARNING (default) metadata loaded in 2562 usec
+memcached<0.76.0>: 2015-12-14T19:20:43.570758Z WARNING (default) Enough number of items loaded to enable traffic
+memcached<0.76.0>: 2015-12-14T19:20:43.570868Z WARNING (default) Access Scanner task enabled
+memcached<0.76.0>: 2015-12-14T19:20:43.570915Z WARNING (default) warmup completed in 2695 usec
+memcached<0.76.0>: 2015-12-14T19:20:43.600502Z WARNING (default) Updated cluster configuration - first 100 bytes: '{"rev":14,"name":"default","uri":"/pools/default/buckets/default?bucket_uuid=ad8ecb904c63066d8459bf1'...
+
+[error_logger:info,2015-12-14T19:20:43.769Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.122.0>},
+                       {name,
+                           {indexer,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {log,"indexer.log"},
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/indexer\",\"-vbuckets=1024\",\"-cluster=127.0.0.1:8091\",\"-adminPort=9100\",\"-scanPort=9101\",\"-httpPort=9102\",\"-streamInitPort=9103\",\"-streamCatchupPort=9104\",\"-streamMaintPort=9105\",\"-storageDir=/opt/couchbase/var/lib/couchbase/index/@2i\",\"-diagDir=/opt/couchbase/var/lib/couchbase/crash\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/index"}]}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [indexer,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:43.769Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:launch_port:83]supervising port: {query,"/opt/couchbase/bin/goport",[],
+                         [use_stdio,exit_status,stderr_to_stdout,stream,
+                          {env,[{"GOPORT_ARGS",
+                                 "[\"/opt/couchbase/bin/cbq-engine\",\"--datastore=http://127.0.0.1:8091\",\"--http=:8093\",\"--configstore=http://127.0.0.1:8091\",\"--enterprise=true\",\"--https=:18093\",\"--certfile=/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\",\"--keyfile=/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"]"},
+                                {"GOTRACEBACK",[]},
+                                {"CBAUTH_REVRPC_URL",
+                                 "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/cbq-engine"}]},
+                          {log,"query.log"}]}
+[ns_server:debug,2015-12-14T19:20:43.769Z,babysitter_of_ns_1@127.0.0.1:<0.130.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[error_logger:info,2015-12-14T19:20:43.908Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ale_dynamic_sup}
+             started: [{pid,<0.132.0>},
+                       {name,'sink-query'},
+                       {mfargs,
+                           {ale_disk_sink,start_link,
+                               ['sink-query',
+                                "/opt/couchbase/var/lib/couchbase/logs/query.log",
+                                [{rotation,
+                                     [{compress,true},
+                                      {size,41943040},
+                                      {num_files,10},
+                                      {buffer_size_max,52428800}]}]]}},
+                       {restart_type,permanent},
+                       {shutdown,5000},
+                       {child_type,worker}]
+
+[error_logger:info,2015-12-14T19:20:44.116Z,babysitter_of_ns_1@127.0.0.1:error_logger<0.6.0>:ale_error_logger_handler:do_log:203]
+=========================PROGRESS REPORT=========================
+          supervisor: {local,ns_child_ports_sup}
+             started: [{pid,<0.129.0>},
+                       {name,
+                           {query,"/opt/couchbase/bin/goport",[],
+                               [use_stdio,exit_status,stderr_to_stdout,stream,
+                                {env,
+                                    [{"GOPORT_ARGS",
+                                      "[\"/opt/couchbase/bin/cbq-engine\",\"--datastore=http://127.0.0.1:8091\",\"--http=:8093\",\"--configstore=http://127.0.0.1:8091\",\"--enterprise=true\",\"--https=:18093\",\"--certfile=/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\",\"--keyfile=/opt/couchbase/var/lib/couchbase/config/ssl-cert-key.pem\"]"},
+                                     {"GOTRACEBACK",[]},
+                                     {"CBAUTH_REVRPC_URL",
+                                      "http://%40:f93e95f2060948bc25f4e55817a4fb01@127.0.0.1:8091/cbq-engine"}]},
+                                {log,"query.log"}]}},
+                       {mfargs,
+                           {restartable,start_link,
+                               [{supervisor_cushion,start_link,
+                                    [query,5000,infinity,ns_port_server,
+                                     start_link,
+                                     [#Fun<ns_child_ports_sup.2.49698737>]]},
+                                86400000]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,worker}]
+
+[ns_server:info,2015-12-14T19:20:44.395Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:20:44.194350Z WARNING (default) Updated cluster configuration - first 100 bytes: '{"rev":17,"name":"default","uri":"/pools/default/buckets/default?bucket_uuid=ad8ecb904c63066d8459bf1'...
+
+[ns_server:info,2015-12-14T19:21:02.985Z,babysitter_of_ns_1@127.0.0.1:<0.114.0>:ns_port_server:log:210]moxi<0.114.0>: 2015-12-14 19:21:04: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/agent_config.c.721) ERROR: bad JSON configuration from http://127.0.0.1:8091/pools/default/saslBucketsStreaming: No vBuckets available; service maybe still initializing
+
+[ns_server:info,2015-12-14T19:21:03.032Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:21:02.831592Z WARNING (No Engine) Bucket catalogue-assemblage registered with low priority
+memcached<0.76.0>: 2015-12-14T19:21:02.835802Z WARNING (catalogue-assemblage) metadata loaded in 3648 usec
+memcached<0.76.0>: 2015-12-14T19:21:02.836017Z WARNING (catalogue-assemblage) Enough number of items loaded to enable traffic
+memcached<0.76.0>: 2015-12-14T19:21:02.836186Z WARNING (catalogue-assemblage) Access Scanner task enabled
+memcached<0.76.0>: 2015-12-14T19:21:02.836251Z WARNING (catalogue-assemblage) warmup completed in 4006 usec
+memcached<0.76.0>: 2015-12-14T19:21:02.864021Z WARNING (catalogue-assemblage) Updated cluster configuration - first 100 bytes: '{"rev":19,"name":"catalogue-assemblage","uri":"/pools/default/buckets/catalogue-assemblage?bucket_uu'...
+
+[ns_server:info,2015-12-14T19:21:03.976Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:21:03.775453Z WARNING (catalogue-assemblage) Updated cluster configuration - first 100 bytes: '{"rev":22,"name":"catalogue-assemblage","uri":"/pools/default/buckets/catalogue-assemblage?bucket_uu'...
+
+[ns_server:info,2015-12-14T19:21:10.162Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:21:09.961717Z WARNING (default) Shutting down tap connections!
+memcached<0.76.0>: 2015-12-14T19:21:09.962098Z WARNING (default) Shutting down dcp connections!
+memcached<0.76.0>: 2015-12-14T19:21:09.963271Z WARNING (No Engine) Unregistering  bucket default
+
+[ns_server:debug,2015-12-14T19:21:14.854Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_ports_manager:handle_call:72]Restart of port moxi is requested
+[ns_server:info,2015-12-14T19:21:14.854Z,babysitter_of_ns_1@127.0.0.1:ns_ports_manager<0.70.0>:ns_child_ports_sup:restart_port:117]restarting port: {moxi,"/opt/couchbase/bin/moxi",
+                       ["-Z",
+                        "port_listen=11211,default_bucket_name=default,downstream_max=1024,downstream_conn_max=4,connect_max_errors=5,connect_retry_interval=30000,connect_timeout=400,auth_timeout=100,cycle=200,downstream_conn_queue_timeout=200,downstream_timeout=5000,wait_queue_timeout=200",
+                        "-z",
+                        "url=http://127.0.0.1:8091/pools/default/saslBucketsStreaming",
+                        "-p","0","-Y","y","-O","stderr",[]],
+                       [{env,[{"EVENT_NOSELECT","1"},
+                              {"MOXI_SASL_PLAIN_USR","@moxi"},
+                              {"MOXI_SASL_PLAIN_PWD","*****"},
+                              {"http_proxy",[]}]},
+                        use_stdio,exit_status,stderr_to_stdout,stream]}
+[ns_server:debug,2015-12-14T19:21:14.855Z,babysitter_of_ns_1@127.0.0.1:<0.112.0>:restartable:loop:71]Restarting child <0.113.0>
+  MFA: {supervisor_cushion,start_link,
+                           [moxi,5000,infinity,ns_port_server,start_link,
+                            [#Fun<ns_child_ports_sup.2.49698737>]]}
+  Shutdown policy: 86400000
+  Caller: {<0.70.0>,#Ref<0.0.0.546>}
+
+[ns_server:debug,2015-12-14T19:21:14.856Z,babysitter_of_ns_1@127.0.0.1:<0.114.0>:ns_port_server:terminate:182]Sending shutdown to port moxi
+[ns_server:debug,2015-12-14T19:21:14.858Z,babysitter_of_ns_1@127.0.0.1:<0.114.0>:ns_port_server:terminate:185]moxi has exited
+[ns_server:info,2015-12-14T19:21:14.858Z,babysitter_of_ns_1@127.0.0.1:<0.114.0>:ns_port_server:log:210]moxi<0.114.0>: EOL on stdin.  Exiting
+
+[ns_server:debug,2015-12-14T19:21:14.858Z,babysitter_of_ns_1@127.0.0.1:<0.137.0>:supervisor_cushion:init:39]starting ns_port_server with delay of 5000
+[ns_server:info,2015-12-14T19:21:15.193Z,babysitter_of_ns_1@127.0.0.1:<0.138.0>:ns_port_server:log:210]moxi<0.138.0>: 2015-12-14 19:21:14: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/cproxy_config.c.327) env: MOXI_SASL_PLAIN_USR (5)
+moxi<0.138.0>: 2015-12-14 19:21:14: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/cproxy_config.c.336) env: MOXI_SASL_PLAIN_PWD (32)
+
+[ns_server:info,2015-12-14T19:21:29.685Z,babysitter_of_ns_1@127.0.0.1:<0.138.0>:ns_port_server:log:210]moxi<0.138.0>: 2015-12-14 19:21:31: (/home/couchbase/jenkins/workspace/sherlock-unix/moxi/src/agent_config.c.721) ERROR: bad JSON configuration from http://127.0.0.1:8091/pools/default/saslBucketsStreaming: No vBuckets available; service maybe still initializing
+
+[ns_server:info,2015-12-14T19:21:29.711Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:21:29.510822Z WARNING (No Engine) Bucket catalogue-vente registered with low priority
+memcached<0.76.0>: 2015-12-14T19:21:29.522001Z WARNING (catalogue-vente) metadata loaded in 10 ms
+memcached<0.76.0>: 2015-12-14T19:21:29.522069Z WARNING (catalogue-vente) Enough number of items loaded to enable traffic
+memcached<0.76.0>: 2015-12-14T19:21:29.522351Z WARNING (catalogue-vente) Access Scanner task enabled
+memcached<0.76.0>: 2015-12-14T19:21:29.522410Z WARNING (catalogue-vente) warmup completed in 10 ms
+memcached<0.76.0>: 2015-12-14T19:21:29.541044Z WARNING (catalogue-vente) Updated cluster configuration - first 100 bytes: '{"rev":25,"name":"catalogue-vente","uri":"/pools/default/buckets/catalogue-vente?bucket_uuid=749b9f8'...
+
+[ns_server:info,2015-12-14T19:21:30.667Z,babysitter_of_ns_1@127.0.0.1:<0.76.0>:ns_port_server:log:210]memcached<0.76.0>: 2015-12-14T19:21:30.465811Z WARNING (catalogue-vente) Updated cluster configuration - first 100 bytes: '{"rev":28,"name":"catalogue-vente","uri":"/pools/default/buckets/catalogue-vente?bucket_uuid=749b9f8'...
+
