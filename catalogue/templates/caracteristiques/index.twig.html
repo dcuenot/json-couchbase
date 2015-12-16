@@ -1,0 +1,24 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+<h3>Browse caracts</h3>
+
+<table id="caract-table" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Libellé</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for caract in caracts %}
+        <tr>
+          <td><a href="/catalogue/caracts/show/{{caract.id}}">{{caract.libelle}}</a></td>
+          <td>
+            <a class="btn btn-small btn-warning" href="/catalogue/caracteristiques/edit/{{caract.id}}">Edit</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

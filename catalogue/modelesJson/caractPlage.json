@@ -1,0 +1,24 @@
+{
+  "title": "Caractéristique Plage",
+  "type": "object",
+  "id": "caracteristiquePlage",
+  "properties": {
+    "libelle": {
+      "type": "string",
+      "title": "Libellé de la caractéristique",
+      "minLength": 4
+    },
+    "unite": {
+			"title": "Unité de la caractéristique",
+			"$ref":"./modelesJson/unite.json"
+    },
+    "min": {
+      "title": "Valeur minimale de la plage",
+      "type": "number"
+    },
+    "max": {
+      "title": "Valeur maximale de la plage",
+      "type": "number"
+    }
+  }
+}

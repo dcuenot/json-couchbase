@@ -1,0 +1,19 @@
+{
+  "title": "Caractéristique Simple",
+  "type": "object",
+  "id": "caracteristiqueSimple",
+  "properties": {
+    "libelle": {
+      "type": "string",
+      "description": "Libellé de la caractéristique",
+      "minLength": 4
+    },
+    "unite": {
+			"title": "Unité de la caractéristique",
+			"$ref":"./modelesJson/unite.json"
+    },
+    "valeurAutorisee": {
+      "type": "string"
+    }
+  }
+}

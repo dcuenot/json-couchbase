@@ -1,0 +1,34 @@
+{
+  "title": "Caractéristique Tableau",
+  "type": "object",
+  "id": "caracteristiqueTableau",
+  "properties": {
+    "libelle": {
+      "type": "string",
+      "title": "Libellé de la caractéristique",
+      "minLength": 4
+    },
+    "unite": {
+			"title": "Unité de la caractéristique",
+			"$ref":"./modelesJson/unite.json"
+    },
+    "valeurMatrice": {
+      "type": "array",
+      "format": "table",
+      "title": "Valeurs",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Valeur",
+        "properties": {
+          "valeur": {
+            "type": "string"
+          },
+          "unite": {
+            "$ref":"./modelesJson/unite.json"
+          }
+        }
+      }
+    }
+  }
+}

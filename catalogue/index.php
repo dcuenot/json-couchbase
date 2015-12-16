@@ -36,7 +36,8 @@ use Silex\Provider\TwigServiceProvider;
  */
 define("SILEX_DEBUG", true);
 define("COUCHBASE_CONNSTR", "http://db");
-define("COUCHBASE_BUCKET", "beer-sample");
+define("COUCHBASE_BUCKET", "catalogue-assemblage");
+//define("COUCHBASE_BUCKET", "beer-sample");
 define("COUCHBASE_PASSWORD", "");
 
 define("INDEX_DISPLAY_LIMIT", 20);
@@ -59,6 +60,7 @@ $app['debug'] = SILEX_DEBUG;
 // Connecting to Couchbase
 $cluster = new CouchbaseCluster(COUCHBASE_CONNSTR);
 $cb = $cluster->openBucket(COUCHBASE_BUCKET, COUCHBASE_PASSWORD);
+$cb->enableN1ql(array('http://db:8093/'));
 
 // Register the Template Engine
 $app->register(new TwigServiceProvider(), array(
@@ -76,6 +78,72 @@ $app->register(new TwigServiceProvider(), array(
 $app->get('/', function() use ($app, $cb) {
     return $app['twig']->render('welcome.twig.html');
 });
+
+
+
+// List all Templates (GET /templates)
+$app->get('/modeles', function() use ($app, $cb) {
+  
+
+    return $app['twig']->render('templates/index.twig.html');
+});
+
+
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
+
+// List all Templates (GET /templates)
+$app->get('/caracteristiques/add', function() use ($app, $cb) {
+    return $app['twig']->render('caracteristiques/index.twig.html');
+});
+
+// Add new
+$app->post('/caracteristiques', function(Request $request) use ($app, $cb) {
+    $data = $request->request;
+    
+    $query = CouchbaseN1qlQuery::fromString('SELECT COUNT(*) AS nb FROM `catalogue-assemblage` WHERE type="caracteristique"; ');
+    $res = $cb->query($query);
+    $nb = 1;
+    if($res[0]->nb > 0) $nb = ($res[0]->nb + 1);
+
+
+    for($i=0; $i<sizeof($data); $i++) {
+      $array = $data->get($i);
+      $array['type'] = 'caracteristique';
+      $cb->upsert('caracteristique_'.($nb+$i), json_encode($array));      
+    }
+    
+    return $app->json($array, 200);
+});
+
+
+$app->get('/caracteristiques', function(Request $request) use ($app, $cb) {
+    $query = CouchbaseN1qlQuery::fromString('
+      SELECT meta(`catalogue-assemblage`).id, libelle 
+      FROM `catalogue-assemblage` WHERE type="caracteristique";
+    ');
+    $res = $cb->query($query);
+    //var_dump($res);
+    
+    $caracts = array();
+    foreach($res as $row) {
+      $caracts[] = array(
+          'libelle' => $row->libelle,
+          'id' => $row->id
+      );
+    }
+    
+    //var_dump($caracts);
+    
+    
+    return $app['twig']->render('caracteristiques/index.twig.html', compact('caracts') );
+});
+
+
 
 // List all Beers (GET /beers)
 $app->get('/beers', function() use ($app, $cb) {
@@ -292,6 +360,7 @@ $app->get('/breweries/search', function(Request $request) use ($app, $cb) {
 
     return $app->json($breweries, 200);
 });
+
 
 // Run the Application
 $app->run();

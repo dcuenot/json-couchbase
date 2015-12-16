@@ -1,0 +1,23 @@
+{
+	"type":"string",
+	"enumSource": [{
+		"source": [{
+			"value": null,
+			"title": "-"
+		}, {
+			"value": "EUR",
+			"title": "€"
+		}, {
+			"value": "jours",
+			"title": "Jours"
+		}, {
+			"value": "mois",
+			"title": "Mois"
+		}, {
+			"value": "annees",
+			"title": "Années"
+		}],
+		"title": "{{item.title}}",
+		"value": "{{item.value}}"
+	}]
+}
