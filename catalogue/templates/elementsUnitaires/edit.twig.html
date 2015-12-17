@@ -1,0 +1,61 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+
+<h3>{{doc.type}}</h3>
+
+    <button id='submit'>Submit (console.log)</button>
+    <button id='restore'>Restore to Default</button>
+    <button id='enable_disable'>Disable/Enable Form</button>
+    <span id='valid_indicator'></span>
+    
+    <div id='editor_holder'></div>
+    
+    <script>
+      // Set default options
+      JSONEditor.defaults.options.theme = 'bootstrap3';
+      JSONEditor.defaults.options.iconlib = 'bootstrap3';
+      JSONEditor.defaults.options.object_layout = 'grid';
+
+      var starting_value = {{doc.data | raw }};
+
+      // Initialize the editor
+      var editor = new JSONEditor(document.getElementById('editor_holder'),{
+        // Enable fetching schemas via ajax
+        ajax: true,
+
+        // The schema for the editor
+        schema:
+            {{doc.modele | raw }}
+        ,
+
+        // Seed the form with a starting value
+        startval: starting_value,
+
+        // Disable additional properties
+        no_additional_properties: true,
+        
+        // Require all properties by default
+        required_by_default: true
+        
+      });
+      
+      // Hook up the submit button to log to the console
+      document.getElementById('submit').addEventListener('click',function() {
+        // Get the value from the editor
+        console.log(editor.getValue());
+
+        $.ajax({
+            url: '/catalogue/{{doc.type}}/edit{{doc.url}}',
+            type: 'POST',
+            data: JSON.stringify(editor.getValue()),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json'
+        });
+      });
+
+    </script>
+
+
+
+{% endblock %}

@@ -92,7 +92,8 @@ $app->get('/modeles', function() use ($app, $cb) {
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
         $data = json_decode($request->getContent(), true);
-        $request->request->replace(is_array($data) ? $data : array());
+
+        $request->request->set('fluxJson', is_array($data) ? $data : array());
     }
 });
 
@@ -121,27 +122,142 @@ $app->post('/caracteristiques', function(Request $request) use ($app, $cb) {
 });
 
 
-$app->get('/caracteristiques', function(Request $request) use ($app, $cb) {
+/*********************************
+      Fonctions transverses
+ ***********************************/
+function listeTypeDocument($type, $app, $cb) {
+    // Liste des documents via N1QL
     $query = CouchbaseN1qlQuery::fromString('
-      SELECT meta(`catalogue-assemblage`).id, libelle 
-      FROM `catalogue-assemblage` WHERE type="caracteristique";
+      SELECT meta(`catalogue-assemblage`).id, libelle
+      FROM `catalogue-assemblage` WHERE type="'.$type.'";
     ');
+
     $res = $cb->query($query);
     //var_dump($res);
-    
-    $caracts = array();
+
+    $documents['type'] = $type;
+    $documents['docs'] = array();
     foreach($res as $row) {
-      $caracts[] = array(
-          'libelle' => $row->libelle,
-          'id' => $row->id
-      );
+        $documents['docs'][] = array(
+            'libelle' => $row->libelle,
+            'id' => $row->id
+        );
     }
-    
-    //var_dump($caracts);
-    
-    
-    return $app['twig']->render('caracteristiques/index.twig.html', compact('caracts') );
+    //var_dump($documents);
+
+
+    return $app['twig']->render('elementsUnitaires/index.twig.html', compact('documents') );
+
+}
+
+function addDocument($id, $type, $app, $cb) {
+    // récupération du modèle
+    $modele = $cb->get($type);
+    if($modele) {
+        $modele_array = array();
+        if($id !== 'new') {
+            $modele_array = json_decode($modele->value,1)['items'];
+            unset($modele_array['headerTemplate']);
+        } else {
+            $modele_array = json_decode($modele->value,1);
+        }
+        $doc = array();
+        $doc['modele'] = preg_replace('/\"(\w+)\"\:[[:blank:]]/i','$1: ',json_encode($modele_array, JSON_PRETTY_PRINT));
+        $doc['type'] = $type;
+        $doc['data'] = '{}';
+        $doc['url'] = '';
+    } else {
+        fail($type.' inconnu');
+    }
+
+    if($id !== 'new') {
+        // récupération des infos en base
+        $res = $cb->get($id);
+        $doc['data'] = preg_replace('/\"(\w+)\"\:[[:blank:]]/i','$1: ',json_encode(json_decode($res->value), JSON_PRETTY_PRINT));$res->value;
+        $doc['url'] = '/'.$id;
+    }
+
+    return $app['twig']->render('elementsUnitaires/edit.twig.html', compact('doc') );
+}
+
+function pushJson($request, $id, $type, $app, $cb) {
+    $data = $request->request->get('fluxJson');
+    //var_dump($data);
+
+    if($id == 'new') {
+        $query = CouchbaseN1qlQuery::fromString('SELECT COUNT(*) AS nb FROM `catalogue-assemblage` WHERE type="'.$type.'"; ');
+        $res = $cb->query($query);
+        //var_dump($res);
+
+        if($res[0]->nb > 0) $nb = ($res[0]->nb + 1); else $nb = 1;
+
+        for($i=0; $i<sizeof($data); $i++) {
+            $array = $data[$i];
+            $array['type'] = $type;
+            $cb->insert($type.'_'.($nb+$i), json_encode($array));
+        }
+    } else {
+        $cb->upsert($id, json_encode($data));
+    }
+
+    return $app->json($array, 200);
+}
+
+
+
+
+function cutUri($request) {
+    $tmp = substr(str_replace($request->getBasePath(),'',$request->getRequestUri()),1);
+    if(strpos($tmp,'/') !== false)
+        return substr($tmp,0,strpos($tmp,'/'));
+
+    return $tmp;
+}
+
+/*********************************
+       Caractéristiques
+***********************************/
+$app->get('/caracteristique', function(Request $request) use ($app, $cb) {
+    return listeTypeDocument(substr(str_replace($request->getBasePath(),'',$request->getRequestUri()),1), $app, $cb);
 });
+
+/*********************************
+       Produits Techniques
+ ***********************************/
+$app->get('/produitTechnique', function(Request $request) use ($app, $cb) {
+    return listeTypeDocument(cutUri($request), $app, $cb);
+});
+
+$app->get('/produitTechnique/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+    return addDocument($id, cutUri($request), $app, $cb);
+})->value('id', 'new');
+
+// Add new
+$app->post('/produitTechnique/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+    return pushJson($request,$id,cutUri($request),$app,$cb);
+})->value('id', 'new');
+
+$pages = array('produitTechnique','operation','unite','valeur','caracteristique');
+foreach($pages as $page) {
+    $app->get('/'.$page, function(Request $request) use ($app, $cb) {
+        return listeTypeDocument(cutUri($request), $app, $cb);
+    });
+
+    $app->get('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+        return addDocument($id, cutUri($request), $app, $cb);
+    })->value('id', 'new');
+
+// Add new
+    $app->post('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+        return pushJson($request,$id,cutUri($request),$app,$cb);
+    })->value('id', 'new');
+
+}
+
+
+
+
+
 
 
 
@@ -219,10 +335,10 @@ $app->get('/beers/show/{id}', function($id) use ($app, $cb) {
 $app->get('/breweries/show/{id}', function($id) use ($app, $cb) {
     $brewery = $cb->get($id);
     if($brewery) {
-       $brewery = json_decode($brewery->value, true);
-       $brewery['id'] = $id;
+        $brewery = json_decode($brewery->value, true);
+        $brewery['id'] = $id;
     } else {
-       return $app->redirect('/breweries');
+        return $app->redirect('/breweries');
     }
 
     return $app['twig']->render(
