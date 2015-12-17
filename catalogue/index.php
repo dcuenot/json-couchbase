@@ -74,20 +74,6 @@ $app->register(new TwigServiceProvider(), array(
  * templates or direct responses as needed.
  */
 
-// Show the Welcome Page (GET /)
-$app->get('/', function() use ($app, $cb) {
-    return $app['twig']->render('welcome.twig.html');
-});
-
-
-
-// List all Templates (GET /templates)
-$app->get('/modeles', function() use ($app, $cb) {
-  
-
-    return $app['twig']->render('templates/index.twig.html');
-});
-
 
 $app->before(function (Request $request) {
     if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
@@ -97,33 +83,36 @@ $app->before(function (Request $request) {
     }
 });
 
-// List all Templates (GET /templates)
-$app->get('/caracteristiques/add', function() use ($app, $cb) {
-    return $app['twig']->render('caracteristiques/index.twig.html');
+// Show the Welcome Page (GET /)
+$app->get('/', function() use ($app, $cb) {
+    return $app['twig']->render('welcome.twig.html');
 });
+
+
+
+
+$pages = array('produitTechnique','operation','unite','valeur','caracteristique');
+foreach($pages as $page) {
+    $app->get('/'.$page, function(Request $request) use ($app, $cb) {
+        return listeTypeDocument(cutUri($request), $app, $cb);
+    });
+
+    $app->get('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+        return addDocument($id, cutUri($request), $app, $cb);
+    })->value('id', 'new');
 
 // Add new
-$app->post('/caracteristiques', function(Request $request) use ($app, $cb) {
-    $data = $request->request;
-    
-    $query = CouchbaseN1qlQuery::fromString('SELECT COUNT(*) AS nb FROM `catalogue-assemblage` WHERE type="caracteristique"; ');
-    $res = $cb->query($query);
-    $nb = 1;
-    if($res[0]->nb > 0) $nb = ($res[0]->nb + 1);
+    $app->post('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
+        return pushJson($request,$id,cutUri($request),$app,$cb);
+    })->value('id', 'new');
+
+}
 
 
-    for($i=0; $i<sizeof($data); $i++) {
-      $array = $data->get($i);
-      $array['type'] = 'caracteristique';
-      $cb->upsert('caracteristique_'.($nb+$i), json_encode($array));      
-    }
-    
-    return $app->json($array, 200);
-});
 
 
 /*********************************
-      Fonctions transverses
+Fonctions transverses
  ***********************************/
 function listeTypeDocument($type, $app, $cb) {
     // Liste des documents via N1QL
@@ -213,270 +202,6 @@ function cutUri($request) {
 
     return $tmp;
 }
-
-/*********************************
-       Caractéristiques
-***********************************/
-$app->get('/caracteristique', function(Request $request) use ($app, $cb) {
-    return listeTypeDocument(substr(str_replace($request->getBasePath(),'',$request->getRequestUri()),1), $app, $cb);
-});
-
-/*********************************
-       Produits Techniques
- ***********************************/
-$app->get('/produitTechnique', function(Request $request) use ($app, $cb) {
-    return listeTypeDocument(cutUri($request), $app, $cb);
-});
-
-$app->get('/produitTechnique/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-    return addDocument($id, cutUri($request), $app, $cb);
-})->value('id', 'new');
-
-// Add new
-$app->post('/produitTechnique/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-    return pushJson($request,$id,cutUri($request),$app,$cb);
-})->value('id', 'new');
-
-$pages = array('produitTechnique','operation','unite','valeur','caracteristique');
-foreach($pages as $page) {
-    $app->get('/'.$page, function(Request $request) use ($app, $cb) {
-        return listeTypeDocument(cutUri($request), $app, $cb);
-    });
-
-    $app->get('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-        return addDocument($id, cutUri($request), $app, $cb);
-    })->value('id', 'new');
-
-// Add new
-    $app->post('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-        return pushJson($request,$id,cutUri($request),$app,$cb);
-    })->value('id', 'new');
-
-}
-
-
-
-
-
-
-
-
-// List all Beers (GET /beers)
-$app->get('/beers', function() use ($app, $cb) {
-    $results = $cb->query(
-        CouchbaseViewQuery::from("beer", "by_name")
-            ->limit(INDEX_DISPLAY_LIMIT),
-        null,
-        true
-    );
-
-    $beers = array();
-    foreach($results['rows'] as $row) {
-        $doc = $cb->get($row['id']);
-        if($doc) {
-            $doc = json_decode($doc->value, true);
-            $beers[] = array(
-                'name' => $doc['name'],
-                'brewery' => $doc['brewery_id'],
-                'id' => $row['id']
-            );
-        }
-
-    }
-
-    return $app['twig']->render('beers/index.twig.html', compact('beers'));
-});
-
-// List all Breweries (GET /breweries)
-$app->get('/breweries', function() use ($app, $cb) {
-    $results = $cb->query(
-        CouchbaseViewQuery::from("brewery", "by_name")
-            ->limit(INDEX_DISPLAY_LIMIT),
-        null,
-        true
-    );
-
-    $breweries = array();
-    foreach($results['rows'] as $row) {
-        $doc = $cb->get($row['id'])->value;
-        if($doc) {
-            $breweries[] = array(
-                'name' => $row['key'],
-                'id' => $row['id']
-            );
-        }
-
-    }
-
-    return $app['twig']->render(
-        'breweries/index.twig.html',
-        compact('breweries')
-    );
-});
-
-
-// Show a beer (GET /beers/show/<ID>)
-$app->get('/beers/show/{id}', function($id) use ($app, $cb) {
-    $beer = $cb->get($id);
-    if($beer) {
-       $beer = json_decode($beer->value, true);
-       $beer['id'] = $id;
-    } else {
-       return $app->redirect('/beers');
-    }
-
-    return $app['twig']->render(
-        'beers/show.twig.html',
-        compact('beer')
-    );
-});
-
-// Show a brewery (GET /breweries/show/<ID>)
-$app->get('/breweries/show/{id}', function($id) use ($app, $cb) {
-    $brewery = $cb->get($id);
-    if($brewery) {
-        $brewery = json_decode($brewery->value, true);
-        $brewery['id'] = $id;
-    } else {
-        return $app->redirect('/breweries');
-    }
-
-    return $app['twig']->render(
-        'breweries/show.twig.html',
-        compact('brewery')
-    );
-});
-
-// Delete Beer (GET /beers/delete/<ID>)
-$app->get('/beers/delete/{id}', function($id) use ($app, $cb) {
-    $cb->delete($id);
-    return $app->redirect('/catalogue/beers');
-});
-
-// Delete Brewery (GET /breweries/delete/<ID>)
-$app->get('/breweries/delete/{id}', function($id) use ($app, $cb) {
-    $cb->delete($id);
-    return $app->redirect('/catalogue/breweries');
-});
-
-// Store submitted Beer Data (POST /beers/edit/<ID>)
-$app->post('/beers/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-    $data = $request->request;
-
-    $newbeer = array();
-    foreach($data as $name => $value) {
-        $name = str_replace('beer_', '', $name);
-        $newbeer[$name] = $value;
-    }
-
-    $newbeer['type'] = 'beer';
-    $cb->upsert($id, json_encode($newbeer));
-
-    return $app->redirect('/catalogue/beers/show/' . $id);
-});
-
-// Show Beer Form
-$app->get('/beers/edit/{id}', function($id) use ($app, $cb) {
-    $beer = $cb->get($id);
-    if($beer) {
-       $beer = json_decode($beer->value, true);
-       $beer['id'] = $id;
-    } else {
-       return $app->redirect('/beers');
-    }
-
-    return $app['twig']->render(
-        'beers/edit.twig.html',
-        compact('beer')
-    );
-});
-
-// Show Brewery Form
-$app->get('/breweries/edit/{id}', function($id) use ($app, $cb) {
-    $brewery = $cb->get($id);
-    if($brewery) {
-       $brewery = json_decode($brewery->value, true);
-       $brewery['id'] = $id;
-    } else {
-       return $app->redirect('/breweries');
-    }
-
-    return $app['twig']->render(
-        'breweries/edit.twig.html',
-        compact('brewery')
-    );
-});
-
-// Store submitted Brewery Data (POST /breweries/edit/<ID>)
-$app->post('/breweries/edit/{id}', function(Request $request, $id) use ($app, $cb) {
-    $data = $request->request;
-
-    $newbrewery = array();
-    foreach($data as $name => $value) {
-        $name = str_replace('brewery_', '', $name);
-        $newbrewery[$name] = $value;
-    }
-
-    $newbrewery['type'] = 'brewery';
-    $cb->upsert($id, json_encode($newbrewery));
-
-    return $app->redirect('/catalogue/breweries/show/' . $id);
-});
-
-// Search via AJAX for beers (GET /beers/search)
-$app->get('/beers/search', function(Request $request) use ($app, $cb) {
-    $input = strtolower($request->query->get('value'));
-
-    // Query the view
-    $q = CouchbaseViewQuery::from('beer', 'by_name')
-        ->limit(INDEX_DISPLAY_LIMIT)
-        ->range($input, $input . '\uefff');
-    $results = $cb->query($q, null, true);
-
-    $beers = array();
-    foreach($results['rows'] as $row) {
-        $doc = $cb->get($row['id']);
-        if($doc) {
-            $doc = json_decode($doc->value, true);
-            $beers[] = array(
-                'name' => $doc['name'],
-                'brewery' => $doc['brewery_id'],
-                'id' => $row['id']
-            );
-        }
-
-    }
-
-    return $app->json($beers, 200);
-});
-
-// Search via AJAX for breweries (GET /breweries/search)
-$app->get('/breweries/search', function(Request $request) use ($app, $cb) {
-    $input = strtolower($request->query->get('value'));
-
-    // Define the Query options
-    // Query the view
-    $q = CouchbaseViewQuery::from('brewery', 'by_name')
-        ->limit(INDEX_DISPLAY_LIMIT)
-        ->range($input, $input . '\uefff');
-    $results = $cb->query($q, null, true);
-
-    $breweries = array();
-    foreach($results['rows'] as $row) {
-        $doc = $cb->get($row['id']);
-        if($doc) {
-            $doc = json_decode($doc->value, true);
-            $breweries[] = array(
-                'name' => $doc['name'],
-                'id' => $row['id']
-            );
-        }
-
-    }
-
-    return $app->json($breweries, 200);
-});
-
 
 // Run the Application
 $app->run();

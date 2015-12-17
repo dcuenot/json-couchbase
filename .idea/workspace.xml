@@ -28,20 +28,11 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/catalogue/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.83732057" vertical-offset="3164" max-vertical-offset="7939">
-              <caret line="239" column="63" selection-start-line="239" selection-start-column="63" selection-end-line="239" selection-end-column="63" />
+            <state vertical-scroll-proportion="1.6539075" vertical-offset="0" max-vertical-offset="3264">
+              <caret line="83" column="3" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="3" />
               <folding>
-                <marker date="1450315709263" expanded="true" signature="3454:3532" placeholder="SELECT COUNT..." />
-                <marker date="1450315709263" expanded="true" signature="4110:4213" placeholder="SELECT meta(..." />
-                <marker date="1450315709263" expanded="true" signature="4110:4214" placeholder="SELECT meta(..." />
-                <marker date="1450315709263" expanded="true" signature="4110:4254" placeholder="SELECT meta(..." />
-                <marker date="1450315709263" expanded="true" signature="5860:5932" placeholder="SELECT COUNT..." />
-                <marker date="1450315709263" expanded="true" signature="9457:9469" placeholder="..." />
-                <marker date="1450315709263" expanded="true" signature="9842:9854" placeholder="..." />
-                <marker date="1450315709263" expanded="true" signature="10255:10267" placeholder="..." />
-                <marker date="1450315709263" expanded="true" signature="10440:10452" placeholder="..." />
-                <marker date="1450315709263" expanded="true" signature="10639:10652" placeholder="..." />
-                <marker date="1450315709263" expanded="true" signature="11856:11869" placeholder="..." />
+                <marker date="1450315864314" expanded="true" signature="3809:3913" placeholder="SELECT meta(..." />
+                <marker date="1450315864314" expanded="true" signature="5559:5631" placeholder="SELECT COUNT..." />
               </folding>
             </state>
           </provider>
@@ -380,17 +371,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5967">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1450315709263" expanded="true" signature="3454:3532" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4213" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4214" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4254" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="5860:5932" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="9457:9469" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="9842:9854" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10255:10267" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10440:10452" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10639:10652" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="11856:11869" placeholder="..." />
+            <marker date="1450315864314" expanded="true" signature="3809:3913" placeholder="SELECT meta(..." />
+            <marker date="1450315864314" expanded="true" signature="5559:5631" placeholder="SELECT COUNT..." />
           </folding>
         </state>
       </provider>
@@ -400,17 +382,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1450315709263" expanded="true" signature="3454:3532" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4213" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4214" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4254" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="5860:5932" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="9457:9469" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="9842:9854" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10255:10267" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10440:10452" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10639:10652" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="11856:11869" placeholder="..." />
+            <marker date="1450315864314" expanded="true" signature="3809:3913" placeholder="SELECT meta(..." />
+            <marker date="1450315864314" expanded="true" signature="5559:5631" placeholder="SELECT COUNT..." />
           </folding>
         </state>
       </provider>
@@ -473,20 +446,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catalogue/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83732057" vertical-offset="3164" max-vertical-offset="7939">
-          <caret line="239" column="63" selection-start-line="239" selection-start-column="63" selection-end-line="239" selection-end-column="63" />
+        <state vertical-scroll-proportion="1.6539075" vertical-offset="0" max-vertical-offset="3264">
+          <caret line="83" column="3" selection-start-line="83" selection-start-column="3" selection-end-line="83" selection-end-column="3" />
           <folding>
-            <marker date="1450315709263" expanded="true" signature="3454:3532" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4213" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4214" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="4110:4254" placeholder="SELECT meta(..." />
-            <marker date="1450315709263" expanded="true" signature="5860:5932" placeholder="SELECT COUNT..." />
-            <marker date="1450315709263" expanded="true" signature="9457:9469" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="9842:9854" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10255:10267" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10440:10452" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="10639:10652" placeholder="..." />
-            <marker date="1450315709263" expanded="true" signature="11856:11869" placeholder="..." />
+            <marker date="1450315864314" expanded="true" signature="3809:3913" placeholder="SELECT meta(..." />
+            <marker date="1450315864314" expanded="true" signature="5559:5631" placeholder="SELECT COUNT..." />
           </folding>
         </state>
       </provider>
