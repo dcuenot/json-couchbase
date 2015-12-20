@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h3>{{doc.type}}</h3>
+    <ul class="nav nav-pills pull-right">
+        <li><a href="/catalogue/{{doc.type}}">Liste des {{doc.type}}</a></li>
+    </ul>
+    <h3>Saisie des {{doc.type}}</h3>
+
 
     <button id='submit'>Submit (console.log)</button>
     <button id='restore'>Restore to Default</button>

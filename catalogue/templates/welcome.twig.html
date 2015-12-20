@@ -1,22 +1,23 @@
 {% extends "layout.twig.html" %}
 
 {% block content %}
-    <div class="span6">
-      <div class="span12">
-        <h4>Browse all Beers</h4>
-        <a href="/catalogue/beers" class="btn btn-warning">Show me all beers</a>
-        <hr />
-      </div>
-      <div class="span12">
-        <h4>Browse all Breweries</h4>
-        <a href="/catalogue/breweries" class="btn btn-info">Take me to the breweries</a>
-      </div>
-      <div class="span12">
-        <h4>Browse all Templates</h4>
-        <a href="/catalogue/templates" class="btn btn-warning">Take me to the templates</a>
-      </div>
-    </div>
-    <div class="span6">
+
+    {% for key, categorie in categories %}
+        <div class="span12">
+            <h3>{{ key }}</h3>
+
+                <ul class="nav">
+                {% for data in categorie %}
+                    <a href="/catalogue/{{ data }}" class="btn btn-info"> {{ data|capitalize }}</a>
+                {% endfor %}
+                </ul>
+            <hr />
+        </div>
+    {% endfor %}
+
+
+
+<div class="span6">
       <div class="span12">
         <h4>About this App</h4>
         <p>Welcome to Couchbase!</p>

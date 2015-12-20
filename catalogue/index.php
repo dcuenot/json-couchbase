@@ -85,7 +85,25 @@ $app->before(function (Request $request) {
 
 // Show the Welcome Page (GET /)
 $app->get('/', function() use ($app, $cb) {
-    return $app['twig']->render('welcome.twig.html');
+    // Liste des documents via N1QL
+    $query = CouchbaseN1qlQuery::fromString('
+      SELECT * FROM `catalogue-assemblage` WHERE type="admin";
+    ');
+    $res = $cb->query($query);
+    $tmp = $res[0];
+    $liste = $tmp->{'catalogue-assemblage'}->listeCategorie;
+
+    $categories = array();
+    $categories['modeles'] = ['admin'];
+    foreach($liste as $k => $v) {
+        if(isset($categories[$k])) $categories[$k] = array_merge($categories[$k], $v);
+        else $categories[$k] = $v;
+    }
+
+    // Modèles non gérés actuellement, donc supprimer
+    unset($categories['modeles']);
+
+    return $app['twig']->render('welcome.twig.html', compact('categories'));
 });
 
 
@@ -97,11 +115,15 @@ foreach($pages as $page) {
         return listeTypeDocument(cutUri($request), $app, $cb);
     });
 
+    $app->get('/'.$page.'/show/{id}', function(Request $request, $id) use ($app, $cb) {
+        return getDocument($id, cutUri($request), $app, $cb);
+    });
+
     $app->get('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
         return addDocument($id, cutUri($request), $app, $cb);
     })->value('id', 'new');
 
-// Add new
+
     $app->post('/'.$page.'/edit/{id}', function(Request $request, $id) use ($app, $cb) {
         return pushJson($request,$id,cutUri($request),$app,$cb);
     })->value('id', 'new');
@@ -167,6 +189,19 @@ function addDocument($id, $type, $app, $cb) {
     }
 
     return $app['twig']->render('elementsUnitaires/edit.twig.html', compact('doc') );
+}
+
+function getDocument($id, $type, $app, $cb) {
+    if($id !== 'new') {
+        // récupération des infos en base
+        $res = $cb->get($id);
+        $doc['data'] = json_encode(json_decode($res->value), JSON_PRETTY_PRINT);
+        $doc['url'] = '/'.$id;
+        $doc['type'] = $type;
+        $doc['id'] = $id;
+    }
+
+    return $app['twig']->render('elementsUnitaires/show.twig.html', compact('doc') );
 }
 
 function pushJson($request, $id, $type, $app, $cb) {
