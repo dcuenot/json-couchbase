@@ -8,6 +8,7 @@ web:
     - .:/app
   links:
     - couchbase:db
+    - couchbase_volumetrie:dbVol
 couchbase:
   image: couchbase
   ports:
@@ -16,3 +17,11 @@ couchbase:
     - "8093:8093"
   volumes:
     - /var/lib/boot2docker/couchbase-catalogue:/opt/couchbase/var
+couchbase_volumetrie:
+  image: couchbase
+  ports:
+    - "9091:8091"
+    - "9092:8092"
+    - "9093:8093"
+  volumes:
+    - /var/lib/boot2docker/couchbase-catalogue-volumetrie:/opt/couchbase/var

@@ -49,7 +49,8 @@ define("INDEX_DISPLAY_LIMIT", 20);
  * It also connects to our Couchbase Cluster and registeres the template
  * engine (Twig).
  */
-
+ 
+ 
 // Autoloader
 require_once __DIR__.'/vendor/autoload.php';
 
@@ -61,6 +62,33 @@ $app['debug'] = SILEX_DEBUG;
 $cluster = new CouchbaseCluster(COUCHBASE_CONNSTR);
 $cb = $cluster->openBucket(COUCHBASE_BUCKET, COUCHBASE_PASSWORD);
 $cb->enableN1ql(array('http://db:8093/'));
+
+// Commande pour transférer des données
+// /opt/couchbase/bin/cbtransfer http://127.0.0.1:8091 http://127.0.0.1:8091 -u Administrator -p Password -b catalogue-assemblage -B catalogue-volumetrie
+
+// Commande pour créer l'index
+// /opt/couchbase/bin/cbq CREATE PRIMARY INDEX on `catalogue-assemblage` USING GSI;
+
+// Liste des documents via N1QL
+$query = CouchbaseN1qlQuery::fromString('
+  SELECT * FROM `catalogue-assemblage` WHERE type="admin";
+');
+$res = $cb->query($query);
+$tmp = $res[0];
+$liste = $tmp->{'catalogue-assemblage'}->listeCategorie;
+
+
+$pages = array();
+$categories['modeles'] = ['admin'];
+foreach($liste as $k => $v) {
+    if(isset($categories[$k])) $categories[$k] = array_merge($categories[$k], $v);
+    else $categories[$k] = $v;
+    
+    $pages = array_merge($pages, $categories[$k]);
+}
+
+
+
 
 // Register the Template Engine
 $app->register(new TwigServiceProvider(), array(
@@ -85,21 +113,8 @@ $app->before(function (Request $request) {
 
 // Show the Welcome Page (GET /)
 $app->get('/', function() use ($app, $cb) {
-    // Liste des documents via N1QL
-    $query = CouchbaseN1qlQuery::fromString('
-      SELECT * FROM `catalogue-assemblage` WHERE type="admin";
-    ');
-    $res = $cb->query($query);
-    $tmp = $res[0];
-    $liste = $tmp->{'catalogue-assemblage'}->listeCategorie;
-
-    $categories = array();
-    $categories['modeles'] = ['admin'];
-    foreach($liste as $k => $v) {
-        if(isset($categories[$k])) $categories[$k] = array_merge($categories[$k], $v);
-        else $categories[$k] = $v;
-    }
-
+    global $categories;
+  
     // Modèles non gérés actuellement, donc supprimer
     unset($categories['modeles']);
 
@@ -109,12 +124,17 @@ $app->get('/', function() use ($app, $cb) {
 
 
 
-$pages = array('produitTechnique','operation','unite','valeur','caracteristique');
+//$pages = array('usine','produitTechnique','operation','unite','valeur','caracteristique');
 foreach($pages as $page) {
+
     $app->get('/'.$page, function(Request $request) use ($app, $cb) {
         return listeTypeDocument(cutUri($request), $app, $cb);
     });
 
+    $app->get('/'.$page.'/json', function(Request $request) use ($app, $cb) {
+        return $app->json(listeDocumentJSON(cutUri($request), $app, $cb), 200);
+    });
+    
     $app->get('/'.$page.'/show/{id}', function(Request $request, $id) use ($app, $cb) {
         return getDocument($id, cutUri($request), $app, $cb);
     });
@@ -136,6 +156,41 @@ foreach($pages as $page) {
 /*********************************
 Fonctions transverses
  ***********************************/
+ function listeDocumentJSON($type, $app, $cb) {
+    if ("caracteristique" == substr($type,0,15) and strlen($type) > 16 ) {
+      return json_decode($cb->get($type)->value);    
+    }
+    
+    
+    // Liste des documents via N1QL
+    $query = CouchbaseN1qlQuery::fromString('
+      SELECT meta(`catalogue-assemblage`).id, libelle
+      FROM `catalogue-assemblage` WHERE type="'.$type.'";
+    ');
+
+    $res = $cb->query($query);
+    //var_dump($res);
+
+    $documents['type'] = "string";
+    //$documents['title'] = "Lien vers ".$type;
+    $documents['enumSource'] = array();
+    foreach($res as $row) {
+        $documents['enumSource'][0]['source'][] = array(
+            'title' => $row->libelle,
+            'value' => $row->id
+        );
+    }
+    $documents['enumSource'][0]['title'] = "{{item.title}}";
+    $documents['enumSource'][0]['value'] = "{{item.value}}";
+    
+    //var_dump($documents);
+    
+ 
+
+    return $documents;
+
+}
+ 
 function listeTypeDocument($type, $app, $cb) {
     // Liste des documents via N1QL
     $query = CouchbaseN1qlQuery::fromString('
@@ -174,6 +229,7 @@ function addDocument($id, $type, $app, $cb) {
         }
         $doc = array();
         $doc['modele'] = preg_replace('/\"(\w+)\"\:[[:blank:]]/i','$1: ',json_encode($modele_array, JSON_PRETTY_PRINT));
+        $doc['modele'] = str_replace('"$ref":','$ref:',$doc['modele']);
         $doc['type'] = $type;
         $doc['data'] = '{}';
         $doc['url'] = '';
@@ -185,6 +241,7 @@ function addDocument($id, $type, $app, $cb) {
         // récupération des infos en base
         $res = $cb->get($id);
         $doc['data'] = preg_replace('/\"(\w+)\"\:[[:blank:]]/i','$1: ',json_encode(json_decode($res->value), JSON_PRETTY_PRINT));$res->value;
+        $doc['modele'] = str_replace('"$ref:"','$ref:',$doc['modele']);
         $doc['url'] = '/'.$id;
     }
 
